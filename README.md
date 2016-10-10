@@ -24,7 +24,29 @@ TensorFlowを用いて、競馬予想をしてみるためのプログラムで�
 - six (1.10.0)
 
 ## Usage
-Update soon...
+#### Mac or Linux (Ubuntu or CentOS7)
+1. Fork it ([http://github.com/taiga4112/arima_tf/fork](http://github.com/taiga4112/arima_tf/fork))
+
+2. Set developing environment
+	```bash
+	$ cd 'yourworkspace'
+	$ git clone git@github.com:youraccount/arima_tf.git
+	$ virtualenv arima_tf
+	$ source arima_tf/bin/activate
+	$ pip install --upgrade https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.10.0-cp27-none-linux_x86_64.whl
+	$ pip install beautifulsoup4, lxml
+	```
+
+3. Collect training data
+	```bash
+	$ cd arima_tf
+	$ python crawler.py
+	```
+
+4. Develop multi-layer perceptron(MLP)
+	```bash
+	$ python mlp_model.py
+	```
 
 
 ## Contribution
