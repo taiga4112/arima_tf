@@ -10,7 +10,8 @@ HORSE_RECORD = "horse/"
 BLOOD_MARK = "horse/ped/"
 RACE_MARK = "race/"
 JOCKEY_MARK = "jockey/result/"
-arima_race_record_url = PAGE_URL+"?pid=race_list&word=%CD%AD%C7%CF%B5%AD%C7%B0&list=30&track[]=1"
+arima_race_record_url = PAGE_URL+"?pid=race_list&word=%CD%AD%C7%CF%B5%AD%C7%B0&track[]=1&list="
+num_of_year_log = "30"
 ###
 
 # 配列情報をファイルに出力
@@ -138,31 +139,6 @@ def get_horse_record(horse_id):
 		data[28] = (get_float(cols[22].text))# 上り
 		data[29] = (get_float((cols[23].text)[:2]))# 馬体重
 
-		# data.append(int(cols[0].text.replace("/","")))# 日付
-		# data.append(get_place_id((cols[1].text)[1:3]))# レース会場
-		# data.append(get_weather_id(cols[2].text))# 天気
-		# data.append(get_race_grade_id(cols[4].text))# レースグレード
-		# data.append(get_float(cols[6].text))# 頭数
-		# data.append(get_float(cols[7].text))# 枠番
-		# data.append(get_float(cols[8].text))# 馬番
-		# data.append(get_float(cols[9].text))# オッズ
-		# data.append(get_float(cols[10].text))# 人気
-		# data.append(get_float(cols[11].text))# 着順
-
-		# # 騎手
-		# jockey_id = str(00)
-		# if cols[12].find('a') == None:# 登録されていないときの対応
-		# 	pass
-		# else:
-		# 	jockey_id = cols[12].find('a')['href'][8:-1]
-		# data.extend(get_jockey_info(jockey_id,str(data[0])[:4]))
-		
-		# data.append(get_float(cols[13].text))# 斤量
-		# data.append(get_float((cols[14].text)[1:3]))# 距離
-		# data.append(get_time_second(cols[17].text))# タイム
-		# data.append(get_float(cols[18].text))# 着差
-		# data.append(get_float(cols[22].text))# 上り
-		# data.append(get_float((cols[23].text)[:2]))# 馬体重
 		data_list.append(data)
 	return data_list
 
@@ -301,12 +277,12 @@ def extract_horse_record(all_records_sorted_by_date,arima_year=2016,num_of_recor
 ########################################
 
 import os
+import datetime
 
 if not os.path.exists(DATA_DIR_NAME):
 	os.mkdir(DATA_DIR_NAME)# dataフォルダを作成する
 
-import datetime
-race_id_list = get_race_id_list(arima_race_record_url)
+race_id_list = get_race_id_list(arima_race_record_url+num_of_year_log)
 number = 0
 for race_id in race_id_list:
 	print str(number), "/", len(race_id_list)-1, race_id, datetime.datetime.today()
