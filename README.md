@@ -35,7 +35,7 @@ TensorFlowを用いて、競馬予想をしてみるためのプログラムで�
 	$ git clone git@github.com:youraccount/arima_tf.git
 	$ virtualenv arima_tf
 	$ source arima_tf/bin/activate
-	$ pip install --upgrade https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.10.0-cp27-none-linux_x86_64.whl
+	$ pip install --upgrade https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.10.0-cp27-none-linux_x86_64.whl # For Unix. Please check the official [page](https://www.tensorflow.org/versions/r0.11/get_started/os_setup.html#virtualenv-installation)
 	$ pip install beautifulsoup4, lxml
 	```
 
@@ -47,17 +47,24 @@ TensorFlowを用いて、競馬予想をしてみるためのプログラムで�
 
 3. Divide data into training data and test data
 	```bash
-	$ python make_train_test.py 'TEST_YEAR(ex. 2015)'
+	$ python make_train_test.py 'TEST_DATA_YEAR(ex. 2015)'
 	```
 
 4. Develop multi-layer perceptron(MLP)
 	```bash
-	$ python mlp_model.py
+	$ python mlp_model.py 'OUTPUT MODEL NAME(ex. model2015.ckpt)'
 	```
+
+5. Running TensorBoard.
+	```bash
+	$ tensorboard --logdir log/test_log
+	```
+
+6. Check your learning result in [TensorBoard](http://localhost:6006).
 
 
 ## Contribution
-1. Fork it ( http://github.com/taiga4112/arima_tf/fork )
+1. Fork it (http://github.com/taiga4112/arima_tf/fork)
 2. Create your feature branch (git checkout -b my-new-feature)
 3. Commit your changes (git commit -am 'Add some feature')
 4. Push to the branch (git push origin my-new-feature)

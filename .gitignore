@@ -12,3 +12,7 @@ data/
 data.txt
 train.txt
 test.txt
+log/
+*.ckpt
+*.ckpt.meta
+checkpoint
