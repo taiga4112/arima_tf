@@ -9,4 +9,6 @@ pip-selfcheck.json
 
 # for this project
 data/
+data.txt
 train.txt
+test.txt

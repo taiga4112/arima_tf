@@ -70,7 +70,7 @@ def create_race_data(race_id,  create_horse_data=True):
 
 			number = number + 1
 	
-	write_csv1("train.txt",info_list)
+	write_csv1("data.txt",info_list)
 
 # 馬の血統情報を抽出する
 def get_horse_blood(horse_id):

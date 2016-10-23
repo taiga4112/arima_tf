@@ -6,17 +6,18 @@ import tensorflow.python.platform
 #
 TRAIN_DATA_DIR = "data"
 TRAIN_FILE = "train.txt"
+TEST_FILE = "test.txt"
 DATA_SIZE = 150
-MAX_ORDER = 17
+MAX_ORDER = 16
 #
 
 #
 HIDDEN_LAYER_SIZE = 100
 TRAINNING_SIZE = 20001
-BATCH_SIZE = 10
+BATCH_SIZE = 2
 #
 
-def get_train_horse_and_label(train_file):
+def get_horse_and_label(train_file):
 	train_horse = []
 	train_label = []
 	f = open(train_file, 'r')
@@ -30,12 +31,12 @@ def get_train_horse_and_label(train_file):
 
 		# 順位情報を1-of-K方式で用意する
 		tmp = np.zeros(MAX_ORDER)
-		tmp[int(l[1])] = 1
+		tmp[int(l[1])-1] = 1
 		train_label.append(tmp)
 
 	f.close()
-	train_horse = np.asarray(train_horse)
-	train_label = np.asarray(train_label)
+	train_horse = np.array(train_horse, dtype=np.float32)
+	train_label = np.array(train_label, dtype=np.float32)
 	return train_horse,train_label
 
 def get_train_horse(train_horse_file):
@@ -72,11 +73,10 @@ def accuracy(logits, labels):
 	accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
 	return accuracy
 
-
 ##############
 ####　main　####
 ##############
-train_horse,train_label = get_train_horse_and_label(TRAIN_FILE)
+train_horse,train_label = get_horse_and_label(TRAIN_FILE)
 
 # Variable
 x = tf.placeholder("float", shape=(None, DATA_SIZE)) # 馬データを入れる仮のTensor
@@ -119,10 +119,9 @@ with tf.Session() as sess:
 		
 		if step % 2000 == 0:
 			train_accuracy = accuracy.eval({x: batch_xs, y_: batch_ys})
-			print('  step, accurary = %6d: %6.3f' % (step, train_accuracy))
-
+			print('  step, accuracy = %6d: %6.3f' % (step, train_accuracy))
+	
 	# Test trained model
-	# print('accuracy = ', accuracy.eval({x: mnist.test.images, y_: mnist.test.labels}))
-
-
-
+	test_horse,test_label = get_horse_and_label(TEST_FILE)
+	test_accuracy = accuracy.eval({x: test_horse, y_: test_label})
+	print('ACCURACY = %6.3f', test_accuracy)
