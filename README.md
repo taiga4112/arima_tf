@@ -1,11 +1,13 @@
 # arima_tf
-TensorFlowを用いて、競馬予想をしてみるためのプログラムです（個人的なテストです）.
+TensorFlowを用いて、競馬予想をしてみるためのプログラムです.
 ここでは、有馬記念を対象にデータの取得からニューラルネットの構築までを扱っています.
 
 ## Description
 このプロジェクトには、以下の2つのソースコードが含まれています。
 * crawler.py
    * [netkeiba.com](http://www.netkeiba.com/)から訓練データを取得するためのプログラム
+* make_train_test.py
+   * clawler.pyで取得したデータを訓練データとテストデータ(引数(西暦))に分割するプログラム
 * mlp_model.py
    * TensorFlowで多層パーセプトロンを構築するプログラム
 
@@ -37,10 +39,15 @@ TensorFlowを用いて、競馬予想をしてみるためのプログラムで�
 	$ pip install beautifulsoup4, lxml
 	```
 
-3. Collect training data
+3. Collect data
 	```bash
 	$ cd arima_tf
 	$ python crawler.py
+	```
+
+3. Divide data into training data and test data
+	```bash
+	$ python make_train_test.py 'TEST_YEAR(ex. 2015)'
 	```
 
 4. Develop multi-layer perceptron(MLP)

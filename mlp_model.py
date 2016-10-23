@@ -14,7 +14,7 @@ MAX_ORDER = 16
 #
 HIDDEN_LAYER_SIZE = 100
 TRAINNING_SIZE = 20001
-BATCH_SIZE = 2
+BATCH_SIZE = 20
 #
 
 def get_horse_and_label(train_file):
