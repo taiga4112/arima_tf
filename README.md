@@ -6,10 +6,16 @@ TensorFlowを用いて、競馬予想をしてみるためのプログラムで�
 このプロジェクトには、以下の2つのソースコードが含まれています。
 * crawler.py
    * [netkeiba.com](http://www.netkeiba.com/)から訓練データを取得するためのプログラム
+* horse_data.py
+   * 学習に必要な馬情報の構造を定義しているプログラム
 * make_train_test.py
    * clawler.pyで取得したデータを訓練データとテストデータ(引数(西暦))に分割するプログラム
-* mlp_model.py
-   * TensorFlowで多層パーセプトロンを構築するプログラム
+* mlp.py
+   * TensorFlowで多層パーセプトロンを定義しているプログラム
+* create_model.py
+   * 訓練データを元に多層パーセプトロンを構築するプログラム
+* test_model.py
+   * create_model.pyによって構築した多層パーセプトロンをテストデータによって評価するプログラム
 
 ## Requirement
 - pip (8.1.2)
@@ -52,16 +58,20 @@ TensorFlowを用いて、競馬予想をしてみるためのプログラムで�
 
 4. Develop multi-layer perceptron(MLP)
 	```bash
-	$ python mlp_model.py 'OUTPUT MODEL NAME(ex. model2015.ckpt)'
+	$ python create_model.py 'OUTPUT_MODEL_NAME(ex. model2015.ckpt)'
 	```
 
-5. Running TensorBoard.
+5. Running TensorBoard if you want to check.
 	```bash
 	$ tensorboard --logdir log/test_log
 	```
 
 6. Check your learning result in [TensorBoard](http://localhost:6006).
 
+7. Evaluating MLP by using test data
+	```bash
+	$ python test_model.py 'MODEL_NAME(ex. model2015.ckpt)'
+	```
 
 ## Contribution
 1. Fork it (http://github.com/taiga4112/arima_tf/fork)
