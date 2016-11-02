@@ -35,13 +35,13 @@ TensorFlowを用いて、競馬予想をしてみるためのプログラムで�
 #### Mac or Linux (Ubuntu or CentOS7)
 1. Fork it ([http://github.com/taiga4112/arima_tf/fork](http://github.com/taiga4112/arima_tf/fork))
 
-2. Set developing environment
+2. Set developing environment (For Unix. Please check the official [page](https://www.tensorflow.org/versions/r0.11/get_started/os_setup.html#virtualenv-installation))
 	```bash
 	$ cd 'yourworkspace'
 	$ git clone git@github.com:youraccount/arima_tf.git
 	$ virtualenv arima_tf
 	$ source arima_tf/bin/activate
-	$ pip install --upgrade https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.10.0-cp27-none-linux_x86_64.whl # For Unix. Please check the official [page](https://www.tensorflow.org/versions/r0.11/get_started/os_setup.html#virtualenv-installation)
+	$ pip install --upgrade https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.10.0-cp27-none-linux_x86_64.whl
 	$ pip install beautifulsoup4, lxml
 	```
 
@@ -70,7 +70,7 @@ TensorFlowを用いて、競馬予想をしてみるためのプログラムで�
 
 7. Evaluating MLP by using test data
 	```bash
-	$ python test_model.py 'MODEL_NAME(ex. model2015.ckpt)'
+	$ python test_model.py 'MODEL_NAME(ex. model2015.ckpt)' 'race_id(from netkeiba.com) ex.201506050810'
 	```
 
 ## Contribution
