@@ -44,7 +44,7 @@ def get_race_id_list(url):
 	return race_id_list
 
 # レース画面から[馬-順位]の情報を取得する
-def create_race_data(race_id,  create_horse_data=True):
+def create_race_data(race_id, create_horse_data=True):
 
 	year = race_id[:4]
 	info_list = []
@@ -71,6 +71,28 @@ def create_race_data(race_id,  create_horse_data=True):
 			number = number + 1
 	
 	write_csv1("data.txt",info_list)
+
+# レース画面からレースの情報を取得する
+def get_all_race_data(race_id):
+	info_list = []
+	url = PAGE_URL+RACE_MARK+race_id
+	html = urllib2.urlopen(url)
+	soup = BeautifulSoup(html, "lxml")
+	table = soup.find("table", class_="race_table_01 nk_tb_common")
+	rows = table.find_all('tr')
+	for row in rows:
+		col = row.find('td', class_="txt_l")
+		if col != None:
+			a = col.find('a')
+			horse_id = a['href'][7:-1]
+			col_tr = col.parent.find_all('td')
+			name = col_tr[3].text.strip()
+			order = col_tr[0].text
+			number = col_tr[2].text
+			odds = col_tr[12].text
+			info_list.append([name, order, number, odds])
+	return info_list
+
 
 # 馬の血統情報を抽出する
 def get_horse_blood(horse_id):
@@ -275,17 +297,17 @@ def extract_horse_record(all_records_sorted_by_date,arima_year=2016,num_of_recor
 ########################################
 ############### main ###################
 ########################################
+if __name__ == '__main__':
+	import os
+	import datetime
 
-import os
-import datetime
+	if not os.path.exists(DATA_DIR_NAME):
+		os.mkdir(DATA_DIR_NAME)# dataフォルダを作成する
 
-if not os.path.exists(DATA_DIR_NAME):
-	os.mkdir(DATA_DIR_NAME)# dataフォルダを作成する
-
-race_id_list = get_race_id_list(arima_race_record_url+num_of_year_log)
-number = 0
-for race_id in race_id_list:
-	print str(number), "/", len(race_id_list)-1, race_id, datetime.datetime.today()
-	create_race_data(race_id)
-	number = number + 1
+	race_id_list = get_race_id_list(arima_race_record_url+num_of_year_log)
+	number = 0
+	for race_id in race_id_list:
+		print str(number), "/", len(race_id_list)-1, race_id, datetime.datetime.today()
+		create_race_data(race_id)
+		number = number + 1
 
