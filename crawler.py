@@ -120,7 +120,7 @@ def get_horse_record(horse_id):
 	for row in rows:
 		data = [0.0]*30
 		cols = row.find_all('td')
-		data[0] = (int(cols[0].text.replace("/","")[4:]))# 日付
+		data[0] = (int(cols[0].text.replace("/","")))# 日付(year+date)
 		data[1] = (get_place_id((cols[1].text)[1:3]))# レース会場
 		data[2] = (get_weather_id(cols[2].text))# 天気
 		data[3] = (get_race_grade_id(cols[4].text))# レースグレード
@@ -283,7 +283,7 @@ def extract_horse_record(all_records_sorted_by_date,arima_year=2016,num_of_recor
 			if int(year)<=int(arima_year):
 				extract_flag = True
 		if extract_flag == True:
-			if extract_remain == num_of_record:
+			if record[0] >= int(str(year)+str(1210)):
 				# その年の有馬記念
 				pass
 			elif extract_remain >= 0:
